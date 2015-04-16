@@ -297,8 +297,9 @@ class CryptoTransportLayer(TransportLayer):
                 pubkey = data_body.get('pubkey')
                 nickname = data_body.get('nick')
                 nat_type = data_body.get('nat_type')
+                avatar_url = data_body.get('avatar_url')
 
-                inbound_peer = self.dht.add_peer(hostname, port, pubkey, guid, nickname, nat_type)
+                inbound_peer = self.dht.add_peer(hostname, port, pubkey, guid, nickname, nat_type, avatar_url)
 
                 if inbound_peer:
                     inbound_peer.reachable = True
@@ -958,11 +959,14 @@ class CryptoTransportLayer(TransportLayer):
         # here goes the application callbacks
         # we get a "clean" msg which is a dict holding whatever
         hostname = msg.get('hostname')
+        port = msg.get('port')
+        pubkey = msg.get('pubkey')
         guid = msg.get('senderGUID')
         nickname = msg.get('senderNick', '')
         nickname = nickname[:120] if nickname else ''
         msg_type = msg.get('type')
         namecoin = msg.get('senderNamecoin', '')
+        avatar_url = msg.get('avatar_url')
 
         # Checking for malformed URIs
         # if not network_util.is_valid_uri(uri):

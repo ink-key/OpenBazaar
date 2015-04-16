@@ -718,6 +718,8 @@ class Market(object):
             {'market_id': self.transport.market_id}
         )
 
+        self.transport.settings = self.get_settings()
+
     def get_settings(self):
         """Get local settings"""
 
